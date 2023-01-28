@@ -5,7 +5,7 @@ myorder = "I want {} pieces of item number {} for {:.2f} dollars."
 print(myorder.format(quantity, itemno, price))
 
 
-print(txt.format(price, itemno, count))
+#print(txt.format(price, itemno, count))
 
 
 
