@@ -1,5 +1,5 @@
-N = int(input())
-M = int(input())
+n = int(input())
+m = int(input())
 x = int(input())
 y = int(input())
-print(min(x, y, min(N, M)-x, max(N, M)-y))
+print(min(x, y, min(n, m)-x, max(n, m)-y))
