@@ -1,5 +1,5 @@
 import json 
-with open("sample-data.json", "r") as read:
+with open('C:/Users/Acer/OneDrive/Рабочий стол/pp2/Week 4/json.md/sample-data.json', 'r', encoding='UTF8') as read:
     data = json.load(read)
     print("Interface Status")
     print("================================================================================")
