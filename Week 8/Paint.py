@@ -60,9 +60,9 @@ def main():
                     color = (255, 0, 0) 
                 elif event.key == pygame.K_g: 
                     color = (0, 255, 0) 
-                elif event.key == pygame.K_b: 
+                elif event.key == pygame.K_b:
                     color = (0, 0, 255) 
-                elif event.key == pygame.K_w: 
+                elif event.key == pygame.K_w:
                     color = (255,255,255)  
         if isMouseDown:#pen
             pygame.draw.line(screen, color, (prevX, prevY), (currentX, currentY))
