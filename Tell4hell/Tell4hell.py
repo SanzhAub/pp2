@@ -169,6 +169,7 @@ class LuckyBox:
             Aluckybox = False
     def draw(self, SCREEN):
         SCREEN.blit(self.image, (self.rect.x, self.rect.y)) 
+    
 
 def main():
     global game_speed, x_pos_bg, y_pos_bg, points, obstacles,is2xscore,Aluckybox
@@ -181,15 +182,20 @@ def main():
     x_pos_bg = 0
     y_pos_bg = 380
     points = 0
+    EXL = 0
     font = pg.font.Font('freesansbold.ttf', 20)
+    font2 = pg.font.Font('freesansbold.ttf', 100)
     obstacles = []
     is2xscore = False
     turboDino = False
     death_count = 0
     Aluckybox = False
-    pg.time.set_timer(pg.USEREVENT + 1, 10000)
-    pg.time.set_timer(pg.USEREVENT + 2, 10000)
-    pg.time.set_timer(pg.USEREVENT + 3,30000)
+    pg.time.set_timer(pg.USEREVENT + 1, 2500)
+    pg.time.set_timer(pg.USEREVENT + 2, 5000)
+    pg.time.set_timer(pg.USEREVENT + 3,10000)
+    # pg.time.set_timer(pg.USEREVENT + 4,15000)
+    # pg.time.set_timer(pg.USEREVENT + 5,20000)
+    # pg.time.set_timer(pg.USEREVENT + 6,30000)
     def score():
         global points, game_speed
         if is2xscore == True:
@@ -203,7 +209,16 @@ def main():
         textRect = text.get_rect()
         textRect.center = (1000, 40)
         SCREEN.blit(text, textRect)
-
+    def point():   
+        text1 = font.render("EXTRA Lifes: " + str(EXL), True, (0, 0, 0))
+        textRect = text1.get_rect()
+        textRect.center = (1000, 60)
+        SCREEN.blit(text1, textRect)
+    def Team():   
+        text1 = font2.render("Team 11. Tell4Hell", True, (0, 0, 0))
+        textRect = text1.get_rect()
+        textRect.center = (600, 600)
+        SCREEN.blit(text1, textRect)
     def background():
         global x_pos_bg, y_pos_bg
         image_width = JOL.get_width()
@@ -212,7 +227,7 @@ def main():
         if x_pos_bg <= -image_width:
             SCREEN.blit(JOL, (image_width + x_pos_bg, y_pos_bg))
             x_pos_bg = 0
-        x_pos_bg -= game_speed
+        x_pos_bg -=game_speed
 
     while run:
         for event in pg.event.get():
@@ -221,9 +236,8 @@ def main():
                 sys.exit()
             elif event.type == pg.USEREVENT + 1:
                 is2xscore = False
-                print('2x boost ')
             elif event.type == pg.USEREVENT + 2 and turboDino:
-                game_speed -= 100
+                game_speed -= 20
             elif event.type == pg.USEREVENT + 3 and Aluckybox == False:
                 Aluckybox = True
 
@@ -235,7 +249,7 @@ def main():
         if Aluckybox:
             luckybox.draw(SCREEN)
             luckybox.update(False)
-        print(death_count)
+        # print(death_count)
         # pg.draw.rect(SCREEN,(0,255,0),luckybox.rect)
         # # pg.draw.rect(SCREEN,(0,255,0),(1200,0,80,80))
         # pg.draw.rect(SCREEN,(255,0,0),player.dino_rect)
@@ -245,6 +259,7 @@ def main():
                 is2xscore = True
             elif random.randint(0,2) == 1:
                 death_count -= 1
+                EXL += 1
             elif random.randint(0,2) == 2:
                 turboDino = True
                 game_speed += 30
@@ -267,6 +282,7 @@ def main():
             if player.dino_rect.colliderect(obstacle.rect):
                 # pg.time.delay(2000)
                 death_count += 1
+                EXL -=1
                 if death_count > 0:
                     menu(death_count)
                 obstacles.pop()
@@ -277,7 +293,8 @@ def main():
         cloud.update()
 
         score()
-
+        point()
+        Team()
         clock.tick(30)
         pg.display.update()
 
